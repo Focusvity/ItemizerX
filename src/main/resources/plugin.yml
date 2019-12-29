@@ -1,6 +1,6 @@
 name: ItemizerX
 version: ${project.version}
-api-version: 1.14
+api-version: 1.15
 description: A rewrite of Itemizer
 author: _Fleek (Focusvity)
 main: me.focusvity.itemizerx.ItemizerX

@@ -1,9 +1,9 @@
 package me.focusvity.itemizerx;
 
-import net.minecraft.server.v1_14_R1.*;
+import net.minecraft.server.v1_15_R1.*;
 import org.apache.commons.lang.StringUtils;
 import org.bukkit.ChatColor;
-import org.bukkit.craftbukkit.v1_14_R1.inventory.CraftItemStack;
+import org.bukkit.craftbukkit.v1_15_R1.inventory.CraftItemStack;
 import org.bukkit.entity.Player;
 
 import java.util.ArrayList;
@@ -60,17 +60,17 @@ public class AttributeManager
             }
         }
         final NBTTagCompound c = new NBTTagCompound();
-        c.set("Name", new NBTTagString(args[2]));
-        c.set("AttributeName", new NBTTagString(a.mcName));
-        c.set("Amount", new NBTTagDouble(amount));
+        c.set("Name", NBTTagString.a(args[2]));
+        c.set("AttributeName", NBTTagString.a(args[2]));
+        c.set("Amount", NBTTagDouble.a(amount));
         if (op == -1)
         {
             op = a.op;
         }
-        c.set("Operation", new NBTTagInt(op));
+        c.set("Operation", NBTTagInt.a(op));
         final UUID uuid = UUID.randomUUID();
-        c.set("UUIDMost", new NBTTagLong(uuid.getMostSignificantBits()));
-        c.set("UUIDLeast", new NBTTagLong(uuid.getLeastSignificantBits()));
+        c.set("UUIDMost", NBTTagLong.a(uuid.getMostSignificantBits()));
+        c.set("UUIDLeast", NBTTagLong.a(uuid.getLeastSignificantBits()));
         if (args.length == 5)
         {
             final List<String> options = new ArrayList<>();
@@ -86,7 +86,7 @@ public class AttributeManager
                         + "&e" + StringUtils.join(options, ", ")));
                 return;
             }
-            c.set("Slot", new NBTTagString(args[4].toLowerCase()));
+            c.set("Slot", NBTTagString.a(args[4].toLowerCase()));
         }
         attrmod.add(c);
         nms.getTag().set("AttributeModifiers", attrmod);

@@ -68,7 +68,7 @@ public class ItemizerXCommand implements CommandExecutor
                         + "&b/itemizer enchant &c- &6Enchant editing command\n"
                         + "&b/itemizer title <&fname&b> &c- &6Set the book's title\n"
                         + "&b/itemizer author <&fname&b> &c- &6Set the book's author\n"
-                        + "&b/itemizer head <&fname&b> &c- &6Set the player of the head"
+                        + "&b/itemizer head <&fname&b> &c- &6Set the player of the head\n"
                         + "&b/itemizer clearall &c- &6Clears all metadata from your item"));
                 return true;
             }
