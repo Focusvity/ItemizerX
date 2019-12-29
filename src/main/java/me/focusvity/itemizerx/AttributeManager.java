@@ -60,17 +60,17 @@ public class AttributeManager
             }
         }
         final NBTTagCompound c = new NBTTagCompound();
-        c.set("Name", NBTTagString.a(args[2]));
-        c.set("AttributeName", NBTTagString.a(args[2]));
-        c.set("Amount", NBTTagDouble.a(amount));
+        c.setString("Name", args[2]);
+        c.setString("AttributeName", a.mcName);
+        c.setDouble("Amount", amount);
         if (op == -1)
         {
             op = a.op;
         }
-        c.set("Operation", NBTTagInt.a(op));
+        c.setInt("Operation", op);
         final UUID uuid = UUID.randomUUID();
-        c.set("UUIDMost", NBTTagLong.a(uuid.getMostSignificantBits()));
-        c.set("UUIDLeast", NBTTagLong.a(uuid.getLeastSignificantBits()));
+        c.setLong("UUIDMost", uuid.getMostSignificantBits());
+        c.setLong("UUIDLeast", uuid.getLeastSignificantBits());
         if (args.length == 5)
         {
             final List<String> options = new ArrayList<>();
@@ -86,7 +86,7 @@ public class AttributeManager
                         + "&e" + StringUtils.join(options, ", ")));
                 return;
             }
-            c.set("Slot", NBTTagString.a(args[4].toLowerCase()));
+            c.setString("Slot", args[4].toLowerCase());
         }
         attrmod.add(c);
         nms.getTag().set("AttributeModifiers", attrmod);

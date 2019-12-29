@@ -615,6 +615,7 @@ public class ItemizerXCommand implements CommandExecutor
                 skullMeta.setOwner(args[1]);
                 item.setItemMeta(skullMeta);
                 sender.sendMessage(colorize("&2The player of the head has been set to &f'" + args[1] + "&f'"));
+                return true;
             }
             case "clearall":
             {
