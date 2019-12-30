@@ -4,6 +4,8 @@ import org.apache.commons.lang.StringUtils;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.NamespacedKey;
+import org.bukkit.block.Block;
+import org.bukkit.block.Sign;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -69,6 +71,7 @@ public class ItemizerXCommand implements CommandExecutor
                         + "&b/itemizer title <&fname&b> &c- &6Set the book's title\n"
                         + "&b/itemizer author <&fname&b> &c- &6Set the book's author\n"
                         + "&b/itemizer head <&fname&b> &c- &6Set the player of the head\n"
+                        + "&b/itemizer sign <&fline&b> <&ftext&b> &c- &6Change the line on the sign\n"
                         + "&b/itemizer clearall &c- &6Clears all metadata from your item"));
                 return true;
             }
@@ -171,11 +174,26 @@ public class ItemizerXCommand implements CommandExecutor
                             {
                                 return true;
                             }
+                            else if (index == 0)
+                            {
+                                sender.sendMessage(colorize("&eThe index for line 1 is 1 not 0\n"
+                                        + "&eChanging the value 0 to 1"));
+                                index = index + 1;
+                            }
                             assert meta != null;
-                            List<String> lores = new ArrayList<>(meta.getLore());
-                            if (meta.getLore() == null || meta.getLore().isEmpty())
+                            List<String> lores;
+                            if (meta.getLore() != null)
+                            {
+                                lores = meta.getLore();
+                            }
+                            else
                             {
                                 sender.sendMessage(colorize("&eThis item has no lores."));
+                                return true;
+                            }
+                            if (index > lores.size())
+                            {
+                                sender.sendMessage(colorize("&4The item's lore doesn't have line &f'" + index + "'"));
                                 return true;
                             }
                             lores.remove(index - 1);
@@ -197,12 +215,27 @@ public class ItemizerXCommand implements CommandExecutor
                             {
                                 return true;
                             }
+                            else if (index == 0)
+                            {
+                                sender.sendMessage(colorize("&eThe index for line 1 is 1 not 0\n"
+                                        + "&eChanging the value 0 to 1"));
+                                index = index + 1;
+                            }
                             String lore = colorize(StringUtils.join(args, " ", 3, args.length));
                             assert meta != null;
-                            List<String> lores = new ArrayList<>(meta.getLore());
-                            if (lores == null || lores.isEmpty())
+                            List<String> lores;
+                            if (meta.getLore() != null)
+                            {
+                                lores = meta.getLore();
+                            }
+                            else
                             {
                                 sender.sendMessage(colorize("&eThis item has no lores."));
+                                return true;
+                            }
+                            if (index > lores.size())
+                            {
+                                sender.sendMessage(colorize("&4The item's lore doesn't have line &f'" + index + "'"));
                                 return true;
                             }
                             lores.set(index - 1, lore);
@@ -615,6 +648,44 @@ public class ItemizerXCommand implements CommandExecutor
                 skullMeta.setOwner(args[1]);
                 item.setItemMeta(skullMeta);
                 sender.sendMessage(colorize("&2The player of the head has been set to &f'" + args[1] + "&f'"));
+                return true;
+            }
+            case "sign":
+            {
+                if (args.length < 3)
+                {
+                    sender.sendMessage(colorize("&3===============&f[&dSign Command&f]&3===============\n"
+                            + "&b/itemizer sign <&fline&b> <&ftext&b> &c- &6Change the line on the sign"));
+                    return true;
+                }
+                final Block block = player.getTargetBlock(null, 20);
+                if (block == null || block.getType() == Material.AIR
+                        || !block.getType().toString().contains("SIGN"))
+                {
+                    sender.sendMessage(colorize("&4Please look at a sign!"));
+                    return true;
+                }
+                int line = parseInt(sender, args[1]);
+                if (line == -1)
+                {
+                    return true;
+                }
+                else if (line == 0)
+                {
+                    sender.sendMessage(colorize("&eThe index for line 1 is 1 not 0\n"
+                            + "&eChanging the value 0 to 1"));
+                    line += 1;
+                }
+                else if (line > 4)
+                {
+                    sender.sendMessage(colorize("&4There's maximum of 4 lines on a sign"));
+                    return true;
+                }
+                String text = colorize(StringUtils.join(args, " ", 2, args.length));
+                Sign sign = (Sign) block.getState();
+                sign.setLine(line - 1, text);
+                sign.update();
+                sender.sendMessage(colorize("&2Line &f'" + line + "'&2 has successfully changed to &f'" + text + "&f'"));
                 return true;
             }
             case "clearall":
