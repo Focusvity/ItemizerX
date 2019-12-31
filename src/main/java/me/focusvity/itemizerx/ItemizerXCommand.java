@@ -481,8 +481,8 @@ public class ItemizerXCommand implements CommandExecutor
                     }
                     case "listall":
                     {
-                        sender.sendMessage("&2Available item flags: &e"
-                                + StringUtils.join(ItemFlag.values(), ", "));
+                        sender.sendMessage(colorize("&2Available item flags: &e"
+                                + StringUtils.join(ItemFlag.values(), ", ")));
                         return true;
                     }
                     default:
