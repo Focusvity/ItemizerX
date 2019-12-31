@@ -643,11 +643,12 @@ public class ItemizerXCommand implements CommandExecutor
                     sender.sendMessage("Get a SKULL in hand!");
                     return true;
                 }
+                String name = args[1].substring(0, 16);
                 final SkullMeta skullMeta = (SkullMeta) meta;
                 assert skullMeta != null;
-                skullMeta.setOwner(args[1]);
+                skullMeta.setOwner(name);
                 item.setItemMeta(skullMeta);
-                sender.sendMessage(colorize("&2The player of the head has been set to &f'" + args[1] + "&f'"));
+                sender.sendMessage(colorize("&2The player of the head has been set to &f'" + name + "&f'"));
                 return true;
             }
             case "sign":
