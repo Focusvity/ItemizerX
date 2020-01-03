@@ -622,6 +622,11 @@ public class ItemizerXCommand implements CommandExecutor
                             + "&b/itemizer author <&fname&b> &c- &6Set the book's title"));
                     return true;
                 }
+                if (!hasBook)
+                {
+                    sender.sendMessage("Get a WRITTEN_BOOK in hand!");
+                    return true;
+                }
                 String name = colorize(args[1]);
                 final BookMeta bookMeta = (BookMeta) meta;
                 assert bookMeta != null;
@@ -643,7 +648,11 @@ public class ItemizerXCommand implements CommandExecutor
                     sender.sendMessage("Get a SKULL in hand!");
                     return true;
                 }
-                String name = args[1].substring(0, 16);
+                String name = args[1];
+                if (name.length() > 16)
+                {
+                    name = name.substring(0, 16);
+                }
                 final SkullMeta skullMeta = (SkullMeta) meta;
                 assert skullMeta != null;
                 skullMeta.setOwner(name);
