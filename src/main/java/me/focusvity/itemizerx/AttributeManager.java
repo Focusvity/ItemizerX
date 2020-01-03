@@ -38,7 +38,7 @@ public class AttributeManager
             player.sendMessage(colorize("&4\"" + args[2] + "\" is not a valid attribute type."));
             return;
         }
-        double amount = 0.0;
+        double amount;
         try
         {
             amount = Double.parseDouble(args[3]);
@@ -46,6 +46,11 @@ public class AttributeManager
         catch (NumberFormatException ex)
         {
             player.sendMessage(colorize("&4\"" + args[3] + "\" is not a valid number."));
+            return;
+        }
+        if (Double.isNaN(amount))
+        {
+            player.sendMessage(colorize("&4Please do not use &f'NaN (Not a Number)'"));
             return;
         }
         final ItemStack nms = CraftItemStack.asNMSCopy(player.getInventory().getItemInMainHand());
