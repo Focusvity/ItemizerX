@@ -84,7 +84,7 @@ public class ItemizerXCommand implements CommandExecutor
             }
             case "name":
             {
-                if (!sender.hasPermission("itemizer.use"))
+                if (!sender.hasPermission("itemizer.name"))
                 {
                     sender.sendMessage("&4You don't have permission to use this command!");
                     return true;
