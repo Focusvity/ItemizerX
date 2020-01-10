@@ -150,7 +150,8 @@ public class ItemizerXCommand implements CommandExecutor
                     sender.sendMessage(colorize("&3===============&f[&dLore Commands&f]&3===============\n"
                             + "&b/itemizer lore add <&ftext&b> &c- &6Add a line of text to your item's lore\n"
                             + "&b/itemizer lore remove <&findex&b> &c- &6Remove a line of text from your item's lore\n"
-                            + "&b/itemizer lore change <&findex&b> <&ftext&b> &c- &6Change a line of text in your item's lore"));
+                            + "&b/itemizer lore change <&findex&b> <&ftext&b> &c- &6Change a line of text in your item's lore\n"
+                            + "&b/itemizer lore clear &c- &6Clear the item's lore"));
                     return true;
                 }
                 if (!hasItem)
@@ -190,7 +191,7 @@ public class ItemizerXCommand implements CommandExecutor
                         }
                         case "remove":
                         {
-                            if (!sender.hasPermission("itemizer.remove"))
+                            if (!sender.hasPermission("itemizer.lore.remove"))
                             {
                                 sender.sendMessage("&4You don't have permission to use this command!");
                                 return true;
@@ -236,7 +237,7 @@ public class ItemizerXCommand implements CommandExecutor
                         }
                         case "change":
                         {
-                            if (!sender.hasPermission("itemizer.change"))
+                            if (!sender.hasPermission("itemizer.lore.change"))
                             {
                                 sender.sendMessage("&4You don't have permission to use this command!");
                                 return true;
@@ -280,6 +281,23 @@ public class ItemizerXCommand implements CommandExecutor
                             item.setItemMeta(meta);
                             sender.sendMessage(colorize("&2Line &f'" + index + "'&2 has changed to &f'" + lore + "&f'"));
                             return true;
+                        }
+                        case "clear":
+                        {
+                            if (!sender.hasPermission("itemizer.lore.clear"))
+                            {
+                                sender.sendMessage("&4You don't have permission to use this command!");
+                                return true;
+                            }
+                            assert meta != null;
+                            if (meta.getLore() == null || meta.getLore().isEmpty())
+                            {
+                                sender.sendMessage(colorize("&4The item has no lores."));
+                                return true;
+                            }
+                            meta.setLore(null);
+                            item.setItemMeta(meta);
+                            sender.sendMessage(colorize("&2The item's lore has been cleared!"));
                         }
                         default:
                         {
@@ -350,7 +368,7 @@ public class ItemizerXCommand implements CommandExecutor
                             }
                             potionMeta.addCustomEffect(pot, false);
                             item.setItemMeta(potionMeta);
-                            sender.sendMessage(colorize(pot.getType().getName() + " &2 added to the potion"));
+                            sender.sendMessage(colorize(pot.getType().getName() + " &2has been added to the potion"));
                             return true;
                         }
                         case "remove":
