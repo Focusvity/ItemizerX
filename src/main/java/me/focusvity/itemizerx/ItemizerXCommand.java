@@ -128,7 +128,7 @@ public class ItemizerXCommand implements CommandExecutor
                     sender.sendMessage("Get an ITEM in hand!");
                     return true;
                 }
-                Material material = Material.matchMaterial(args[1]);
+                Material material = Material.matchMaterial(args[1].toUpperCase());
                 if (material == null)
                 {
                     sender.sendMessage(colorize("&4The material &f\"" + args[1] + "&f\"&4 does not exist!"));
