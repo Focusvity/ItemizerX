@@ -155,18 +155,18 @@ public class AttributeManager
     public enum Attributes
     {
 
-        MAX_HEALTH("generic.maxHealth", 0),
-        FOLLOW_RANGE("generic.followRange", 1),
-        KNOCKBACK_RESISTANCE("generic.knockbackResistance", 1),
-        MOVEMENT_SPEED("generic.movementSpeed", 1),
-        DAMAGE("generic.attackDamage", 0),
+        MAX_HEALTH("generic.max_health", 0),
+        FOLLOW_RANGE("generic.follow_range", 1),
+        KNOCKBACK_RESISTANCE("generic.knockback_resistance", 1),
+        MOVEMENT_SPEED("generic.movement_speed", 1),
+        DAMAGE("generic.attack_damage", 0),
         ARMOR("generic.armor", 0),
-        ARMOR_TOUGHNESS("generic.armorToughness", 0),
-        FLYING_SPEED("generic.flyingSpeed", 1),
-        ATTACK_SPEED("generic.attackSpeed", 1),
+        ARMOR_TOUGHNESS("generic.armor_toughness", 0),
+        FLYING_SPEED("generic.flying_speed", 1),
+        ATTACK_SPEED("generic.attack_speed", 1),
         LUCK("generic.luck", 0),
-        HORSE_JUMP("horse.jumpStrength", 1),
-        ZOMBIE_REINFORCEMENTS("zombie.spawnReinforcements", 1);
+        HORSE_JUMP("horse.jump_strength", 1),
+        ZOMBIE_REINFORCEMENTS("zombie.spawn_reinforcements", 1);
 
         private final String mcName;
         private final int op;
