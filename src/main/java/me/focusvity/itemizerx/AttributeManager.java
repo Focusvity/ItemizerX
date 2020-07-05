@@ -1,14 +1,16 @@
 package me.focusvity.itemizerx;
 
-import net.minecraft.server.v1_15_R1.*;
+import net.minecraft.server.v1_16_R1.ItemStack;
+import net.minecraft.server.v1_16_R1.NBTTagCompound;
+import net.minecraft.server.v1_16_R1.NBTTagList;
 import org.apache.commons.lang.StringUtils;
 import org.bukkit.ChatColor;
-import org.bukkit.craftbukkit.v1_15_R1.inventory.CraftItemStack;
+import org.bukkit.craftbukkit.v1_16_R1.inventory.CraftItemStack;
 import org.bukkit.entity.Player;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.UUID;
+import java.util.Random;
 
 public class AttributeManager
 {
@@ -73,9 +75,14 @@ public class AttributeManager
             op = a.op;
         }
         c.setInt("Operation", op);
-        final UUID uuid = UUID.randomUUID();
-        c.setLong("UUIDMost", uuid.getMostSignificantBits());
-        c.setLong("UUIDLeast", uuid.getLeastSignificantBits());
+        final Random random = new Random();
+        c.setIntArray("UUID", new int[]
+                {
+                        random.nextInt(),
+                        random.nextInt(),
+                        random.nextInt(),
+                        random.nextInt()
+                });
         if (args.length == 5)
         {
             final List<String> options = new ArrayList<>();

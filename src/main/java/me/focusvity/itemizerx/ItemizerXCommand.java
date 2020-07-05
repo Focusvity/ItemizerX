@@ -298,6 +298,7 @@ public class ItemizerXCommand implements CommandExecutor
                             meta.setLore(null);
                             item.setItemMeta(meta);
                             sender.sendMessage(colorize("&2The item's lore has been cleared!"));
+                            return true;
                         }
                         default:
                         {
@@ -575,7 +576,7 @@ public class ItemizerXCommand implements CommandExecutor
                             sender.sendMessage(colorize("&4The flag &f'" + args[2].toUpperCase() + "' &4already added to the item!"));
                             return true;
                         }
-                        meta.addItemFlags(new ItemFlag[]{flag});
+                        meta.addItemFlags(flag);
                         item.setItemMeta(meta);
                         sender.sendMessage(colorize("&2The flag &f'" + args[2].toUpperCase() + "' &2has been added to your item!"));
                         return true;
@@ -605,7 +606,7 @@ public class ItemizerXCommand implements CommandExecutor
                             sender.sendMessage(colorize("&4The flag &f'" + args[2].toUpperCase() + "' &4has not been added the item!"));
                             return true;
                         }
-                        meta.removeItemFlags(new ItemFlag[]{flag});
+                        meta.removeItemFlags(flag);
                         item.setItemMeta(meta);
                         sender.sendMessage(colorize("&2The flag &f'" + args[2].toUpperCase() + "' &2has been removed from your item!"));
                         return true;
@@ -658,7 +659,7 @@ public class ItemizerXCommand implements CommandExecutor
                             + "&b/itemizer enchant add <&fname&b> <&flevel&b> &c- &6Add an enchant\n"
                             + "&b/itemizer enchant remove <&fname&b> &c- &6Remove an enchant\n"
                             + "&b/itemizer enchant list &c- &6List all item's enchants\n"
-                            + "&b/itemizer enchant listall &c- &6Listt all available enchants"));
+                            + "&b/itemizer enchant listall &c- &6List all available enchants"));
                     return true;
                 }
                 if (!hasItem)
