@@ -24,6 +24,8 @@ import org.bukkit.potion.PotionEffectType;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class ItemizerXCommand implements CommandExecutor
 {
@@ -67,7 +69,7 @@ public class ItemizerXCommand implements CommandExecutor
         {
             case "help":
             {
-                sender.sendMessage(colorize("&3===============&f[&dItemizerX Commands&f]&3===============\n"
+                sender.sendMessage(colorize("&3=============&f[&dItemizerX Commands&f]&3=============\n"
                         + "&b/itemizer name <&fname&b> &c- &6Name your item\n"
                         + "&b/itemizer id <&fid&b> &c- &6Change the item's material\n"
                         + "&b/itemizer lore &c- &6Lore editing command\n"
@@ -541,7 +543,7 @@ public class ItemizerXCommand implements CommandExecutor
                             + "&b/itemizer flag add <&fname&b> &c- &6Add a flag\n"
                             + "&b/itemizer flag remove <&fname&b> &c- &6Remove a flag\n"
                             + "&b/itemizer flag list &c- &6List all item's flag\n"
-                            + "&b/itemizer flag listall &c- &6Listt all available flags"));
+                            + "&b/itemizer flag listall &c- &6List all available flags"));
                     return true;
                 }
                 if (!hasItem)
@@ -650,7 +652,7 @@ public class ItemizerXCommand implements CommandExecutor
             {
                 if (!sender.hasPermission("itemizer.enchant"))
                 {
-                    sender.sendMessage("&4You don't have permission to use this command!");
+                    sender.sendMessage(colorize("&4You don't have permission to use this command!"));
                     return true;
                 }
                 if (args.length == 1)
@@ -673,7 +675,7 @@ public class ItemizerXCommand implements CommandExecutor
                     {
                         if (!sender.hasPermission("itemizer.enchant.add"))
                         {
-                            sender.sendMessage("&4You don't have permission to use this command!");
+                            sender.sendMessage(colorize("&4You don't have permission to use this command!"));
                             return true;
                         }
                         if (args.length < 4)
@@ -923,7 +925,14 @@ public class ItemizerXCommand implements CommandExecutor
 
     private String colorize(String string)
     {
-        return ChatColor.translateAlternateColorCodes('&', string);
+        Matcher matcher = Pattern.compile("&#[a-fA-F0-9]{6}").matcher(string);
+        while (matcher.find())
+        {
+            String code = matcher.group().replace("&", "");
+            string = string.replace("&" + code, net.md_5.bungee.api.ChatColor.of(code) + "");
+        }
+        string = ChatColor.translateAlternateColorCodes('&', string);
+        return string;
     }
 
     private int parseInt(CommandSender sender, String string)
