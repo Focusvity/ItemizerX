@@ -443,7 +443,7 @@ public class ItemizerXCommand implements CommandExecutor
                             if (args.length < 3)
                             {
                                 sender.sendMessage(colorize("&3===============&f[&dPotion Commands&f]&3===============\n"
-                                        + "&b/itemizer potion add <&fhexcolor&b> &c- &6Set a potion color"));
+                                        + "&b/itemizer potion color <&fhexcolor&b> &c- &6Set a potion color"));
                                 return true;
                             }
                             final PotionMeta potionMeta = (PotionMeta) meta;
