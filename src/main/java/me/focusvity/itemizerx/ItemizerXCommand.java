@@ -2,6 +2,7 @@ package me.focusvity.itemizerx;
 
 import org.apache.commons.lang.StringUtils;
 import org.bukkit.ChatColor;
+import org.bukkit.Color;
 import org.bukkit.Material;
 import org.bukkit.NamespacedKey;
 import org.bukkit.block.Block;
@@ -323,6 +324,7 @@ public class ItemizerXCommand implements CommandExecutor
                             + "&b/itemizer potion add <&feffect&b> <&flevel&b> <&ftime[tick]&b> &c- &6Add a potion effect\n"
                             + "&b/itemizer potion remove <&feffect&b> &c- &6Remove a potion effect\n"
                             + "&b/itemizer potion change <&fname&b> &c- &6Change the potion type\n"
+                            + "&b/itemizer potion color <&fhexcolor&b> &c- &6Set the potion color\n"
                             + "&b/itemizer potion list &c- &6List all potion effects"));
                     return true;
                 }
@@ -429,6 +431,36 @@ public class ItemizerXCommand implements CommandExecutor
                             }
                             item.setType(material);
                             sender.sendMessage(colorize("&2The potion in hand has changed to &f'" + material.name() + "'"));
+                            return true;
+                        }
+                        case "color":
+                        {
+                            if (!sender.hasPermission("itemizer.potion.color"))
+                            {
+                                sender.sendMessage("&4You don't have permission to use this command!");
+                                return true;
+                            }
+                            if (args.length < 3)
+                            {
+                                sender.sendMessage(colorize("&3===============&f[&dPotion Commands&f]&3===============\n"
+                                        + "&b/itemizer potion color <&fhexcolor&b> &c- &6Set a potion color"));
+                                return true;
+                            }
+                            final PotionMeta potionMeta = (PotionMeta) meta;
+                            assert potionMeta != null;
+                            try
+                            {
+                                java.awt.Color awtColor = java.awt.Color.decode(args[2]);
+                                Color color = Color.fromRGB(awtColor.getRed(), awtColor.getGreen(), awtColor.getBlue());
+                                potionMeta.setColor(color);
+                                item.setItemMeta(potionMeta);
+                                sender.sendMessage(colorize(args[2] + " &2has been set as potion color"));
+                            }
+                            catch(NumberFormatException ignored)
+                            {
+                                sender.sendMessage(colorize("&4The hex &f\"" + args[2] + "&f\"&4 is invalid!"));
+                                return true;
+                            }
                             return true;
                         }
                         case "list":
