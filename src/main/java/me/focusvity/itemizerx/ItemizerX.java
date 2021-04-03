@@ -17,6 +17,7 @@ public class ItemizerX extends JavaPlugin
     public void onEnable()
     {
         plugin = this;
+        CoreProtectBridge.getCoreProtect();
         getCommand("itemizer").setExecutor(new ItemizerXCommand());
     }
 

@@ -89,7 +89,7 @@ public class ItemizerXCommand implements CommandExecutor
             {
                 if (!sender.hasPermission("itemizer.name"))
                 {
-                    sender.sendMessage("&4You don't have permission to use this command!");
+                    sender.sendMessage(colorize("&4You don't have permission to use this command!"));
                     return true;
                 }
                 if (args.length == 1)
@@ -117,7 +117,7 @@ public class ItemizerXCommand implements CommandExecutor
             {
                 if (!sender.hasPermission("itemizer.id"))
                 {
-                    sender.sendMessage("&4You don't have permission to use this command!");
+                    sender.sendMessage(colorize("&4You don't have permission to use this command!"));
                     return true;
                 }
                 if (args.length == 1)
@@ -145,7 +145,7 @@ public class ItemizerXCommand implements CommandExecutor
             {
                 if (!sender.hasPermission("itemizer.lore"))
                 {
-                    sender.sendMessage("&4You don't have permission to use this command!");
+                    sender.sendMessage(colorize("&4You don't have permission to use this command!"));
                     return true;
                 }
                 if (args.length == 1)
@@ -170,7 +170,7 @@ public class ItemizerXCommand implements CommandExecutor
                         {
                             if (!sender.hasPermission("itemizer.lore.add"))
                             {
-                                sender.sendMessage("&4You don't have permission to use this command!");
+                                sender.sendMessage(colorize("&4You don't have permission to use this command!"));
                                 return true;
                             }
                             if (args.length == 2)
@@ -196,7 +196,7 @@ public class ItemizerXCommand implements CommandExecutor
                         {
                             if (!sender.hasPermission("itemizer.lore.remove"))
                             {
-                                sender.sendMessage("&4You don't have permission to use this command!");
+                                sender.sendMessage(colorize("&4You don't have permission to use this command!"));
                                 return true;
                             }
                             if (args.length == 2)
@@ -205,16 +205,10 @@ public class ItemizerXCommand implements CommandExecutor
                                         + "&b/itemizer lore remove <&findex&b> &c- &6Remove a line of text from your item's lore"));
                                 return true;
                             }
-                            int index = parseInt(sender, args[2]);
-                            if (index == -1)
+                            Integer index = parseInt(sender, args[2]);
+                            if (index == null)
                             {
                                 return true;
-                            }
-                            else if (index == 0)
-                            {
-                                sender.sendMessage(colorize("&eThe index for line 1 is 1 not 0\n"
-                                        + "&eChanging the value 0 to 1"));
-                                index = index + 1;
                             }
                             assert meta != null;
                             List<String> lores;
@@ -242,7 +236,7 @@ public class ItemizerXCommand implements CommandExecutor
                         {
                             if (!sender.hasPermission("itemizer.lore.change"))
                             {
-                                sender.sendMessage("&4You don't have permission to use this command!");
+                                sender.sendMessage(colorize("&4You don't have permission to use this command!"));
                                 return true;
                             }
                             if (args.length < 4)
@@ -251,16 +245,10 @@ public class ItemizerXCommand implements CommandExecutor
                                         + "&b/itemizer lore change <&findex&b> <&ftext&b> &c- &6Change a line of text in your item's lore"));
                                 return true;
                             }
-                            int index = parseInt(sender, args[2]);
-                            if (index == -1)
+                            Integer index = parseInt(sender, args[2]);
+                            if (index == null)
                             {
                                 return true;
-                            }
-                            else if (index == 0)
-                            {
-                                sender.sendMessage(colorize("&eThe index for line 1 is 1 not 0\n"
-                                        + "&eChanging the value 0 to 1"));
-                                index = index + 1;
                             }
                             String lore = colorize(StringUtils.join(args, " ", 3, args.length));
                             assert meta != null;
@@ -289,7 +277,7 @@ public class ItemizerXCommand implements CommandExecutor
                         {
                             if (!sender.hasPermission("itemizer.lore.clear"))
                             {
-                                sender.sendMessage("&4You don't have permission to use this command!");
+                                sender.sendMessage(colorize("&4You don't have permission to use this command!"));
                                 return true;
                             }
                             assert meta != null;
@@ -315,7 +303,7 @@ public class ItemizerXCommand implements CommandExecutor
             {
                 if (!sender.hasPermission("itemizer.potion"))
                 {
-                    sender.sendMessage("&4You don't have permission to use this command!");
+                    sender.sendMessage(colorize("&4You don't have permission to use this command!"));
                     return true;
                 }
                 if (args.length == 1)
@@ -342,7 +330,7 @@ public class ItemizerXCommand implements CommandExecutor
                         {
                             if (!sender.hasPermission("itemizer.potion.add"))
                             {
-                                sender.sendMessage("&4You don't have permission to use this command!");
+                                sender.sendMessage(colorize("&4You don't have permission to use this command!"));
                                 return true;
                             }
                             if (args.length < 5)
@@ -357,9 +345,9 @@ public class ItemizerXCommand implements CommandExecutor
                                 sender.sendMessage(colorize("&4The potion &f\"" + args[2] + "&f\"&4 does not exist!"));
                                 return true;
                             }
-                            int level = parseInt(sender, args[4]);
-                            int tick = parseInt(sender, args[3]);
-                            if (level == -1 || tick == -1)
+                            Integer level = parseInt(sender, args[3]);
+                            Integer tick = parseInt(sender, args[4]);
+                            if (level == null || tick == null)
                             {
                                 return true;
                             }
@@ -380,7 +368,7 @@ public class ItemizerXCommand implements CommandExecutor
                         {
                             if (!sender.hasPermission("itemizer.potion.remove"))
                             {
-                                sender.sendMessage("&4You don't have permission to use this command!");
+                                sender.sendMessage(colorize("&4You don't have permission to use this command!"));
                                 return true;
                             }
                             if (args.length == 2)
@@ -411,7 +399,7 @@ public class ItemizerXCommand implements CommandExecutor
                         {
                             if (!sender.hasPermission("itemizer.potion.change"))
                             {
-                                sender.sendMessage("&4You don't have permission to use this command!");
+                                sender.sendMessage(colorize("&4You don't have permission to use this command!"));
                                 return true;
                             }
                             if (args.length == 2)
@@ -437,7 +425,7 @@ public class ItemizerXCommand implements CommandExecutor
                         {
                             if (!sender.hasPermission("itemizer.potion.color"))
                             {
-                                sender.sendMessage("&4You don't have permission to use this command!");
+                                sender.sendMessage(colorize("&4You don't have permission to use this command!"));
                                 return true;
                             }
                             if (args.length < 3)
@@ -456,7 +444,7 @@ public class ItemizerXCommand implements CommandExecutor
                                 item.setItemMeta(potionMeta);
                                 sender.sendMessage(colorize(args[2] + " &2has been set as potion color"));
                             }
-                            catch(NumberFormatException ignored)
+                            catch (NumberFormatException ignored)
                             {
                                 sender.sendMessage(colorize("&4The hex &f\"" + args[2] + "&f\"&4 is invalid!"));
                                 return true;
@@ -467,7 +455,7 @@ public class ItemizerXCommand implements CommandExecutor
                         {
                             if (!sender.hasPermission("itemizer.potion.list"))
                             {
-                                sender.sendMessage("&4You don't have permission to use this command!");
+                                sender.sendMessage(colorize("&4You don't have permission to use this command!"));
                                 return true;
                             }
                             StringBuilder sb = new StringBuilder();
@@ -492,7 +480,7 @@ public class ItemizerXCommand implements CommandExecutor
             {
                 if (!sender.hasPermission("itemizer.attr"))
                 {
-                    sender.sendMessage("&4You don't have permission to use this command!");
+                    sender.sendMessage(colorize("&4You don't have permission to use this command!"));
                     return true;
                 }
                 if (args.length == 1)
@@ -517,7 +505,7 @@ public class ItemizerXCommand implements CommandExecutor
                         {
                             if (!sender.hasPermission("itemizer.attr.add"))
                             {
-                                sender.sendMessage("&4You don't have permission to use this command!");
+                                sender.sendMessage(colorize("&4You don't have permission to use this command!"));
                                 return true;
                             }
                             AttributeManager.addAttr(player, args);
@@ -527,7 +515,7 @@ public class ItemizerXCommand implements CommandExecutor
                         {
                             if (!sender.hasPermission("itemizer.attr.remove"))
                             {
-                                sender.sendMessage("&4You don't have permission to use this command!");
+                                sender.sendMessage(colorize("&4You don't have permission to use this command!"));
                                 return true;
                             }
                             AttributeManager.removeAttr(player, args[2]);
@@ -537,7 +525,7 @@ public class ItemizerXCommand implements CommandExecutor
                         {
                             if (!sender.hasPermission("itemizer.attr.list"))
                             {
-                                sender.sendMessage("&4You don't have permission to use this command!");
+                                sender.sendMessage(colorize("&4You don't have permission to use this command!"));
                                 return true;
                             }
                             AttributeManager.listAttr(player);
@@ -547,7 +535,7 @@ public class ItemizerXCommand implements CommandExecutor
                         {
                             if (!sender.hasPermission("itemizer.attr.listall"))
                             {
-                                sender.sendMessage("&4You don't have permission to use this command!");
+                                sender.sendMessage(colorize("&4You don't have permission to use this command!"));
                                 return true;
                             }
                             sender.sendMessage(colorize("&2Supported attributes: "
@@ -589,7 +577,7 @@ public class ItemizerXCommand implements CommandExecutor
                     {
                         if (!sender.hasPermission("itemizer.flag.add"))
                         {
-                            sender.sendMessage("&4You don't have permission to use this command!");
+                            sender.sendMessage(colorize("&4You don't have permission to use this command!"));
                             return true;
                         }
                         if (args.length == 2)
@@ -619,7 +607,7 @@ public class ItemizerXCommand implements CommandExecutor
                     {
                         if (!sender.hasPermission("itemizer.flag.remove"))
                         {
-                            sender.sendMessage("&4You don't have permission to use this command!");
+                            sender.sendMessage(colorize("&4You don't have permission to use this command!"));
                             return true;
                         }
                         if (args.length == 2)
@@ -649,7 +637,7 @@ public class ItemizerXCommand implements CommandExecutor
                     {
                         if (!sender.hasPermission("itemizer.flag.list"))
                         {
-                            sender.sendMessage("&4You don't have permission to use this command!");
+                            sender.sendMessage(colorize("&4You don't have permission to use this command!"));
                             return true;
                         }
                         assert meta != null;
@@ -666,7 +654,7 @@ public class ItemizerXCommand implements CommandExecutor
                     {
                         if (!sender.hasPermission("itemizer.flag.listall"))
                         {
-                            sender.sendMessage("&4You don't have permission to use this command!");
+                            sender.sendMessage(colorize("&4You don't have permission to use this command!"));
                             return true;
                         }
                         sender.sendMessage(colorize("&2Available item flags: &e"
@@ -769,7 +757,7 @@ public class ItemizerXCommand implements CommandExecutor
                     {
                         if (!sender.hasPermission("itemizer.enchant.list"))
                         {
-                            sender.sendMessage("&4You don't have permission to use this command!");
+                            sender.sendMessage(colorize("&4You don't have permission to use this command!"));
                             return true;
                         }
                         assert meta != null;
@@ -786,7 +774,7 @@ public class ItemizerXCommand implements CommandExecutor
                     {
                         if (!sender.hasPermission("itemizer.enchant.listall"))
                         {
-                            sender.sendMessage("&4You don't have permission to use this command!");
+                            sender.sendMessage(colorize("&4You don't have permission to use this command!"));
                             return true;
                         }
                         StringBuilder sb = new StringBuilder();
@@ -810,7 +798,7 @@ public class ItemizerXCommand implements CommandExecutor
             {
                 if (!sender.hasPermission("itemizer.title"))
                 {
-                    sender.sendMessage("&4You don't have permission to use this command!");
+                    sender.sendMessage(colorize("&4You don't have permission to use this command!"));
                     return true;
                 }
                 if (args.length == 1)
@@ -862,7 +850,7 @@ public class ItemizerXCommand implements CommandExecutor
             {
                 if (!sender.hasPermission("itemizer.head"))
                 {
-                    sender.sendMessage("&4You don't have permission to use this command!");
+                    sender.sendMessage(colorize("&4You don't have permission to use this command!"));
                     return true;
                 }
                 if (args.length == 1)
@@ -908,16 +896,10 @@ public class ItemizerXCommand implements CommandExecutor
                     sender.sendMessage(colorize("&4Please look at a sign!"));
                     return true;
                 }
-                int line = parseInt(sender, args[1]);
-                if (line == -1)
+                Integer line = parseInt(sender, args[1]);
+                if (line == null)
                 {
                     return true;
-                }
-                else if (line == 0)
-                {
-                    sender.sendMessage(colorize("&eThe index for line 1 is 1 not 0\n"
-                            + "&eChanging the value 0 to 1"));
-                    line += 1;
                 }
                 else if (line > 4)
                 {
@@ -925,9 +907,11 @@ public class ItemizerXCommand implements CommandExecutor
                     return true;
                 }
                 String text = colorize(StringUtils.join(args, " ", 2, args.length));
+                CoreProtectBridge.getAPI().logRemoval(player.getName(), block.getLocation(), block.getType(), block.getBlockData());
                 Sign sign = (Sign) block.getState();
                 sign.setLine(line - 1, text);
                 sign.update();
+                CoreProtectBridge.getAPI().logPlacement(player.getName(), sign.getLocation(), sign.getType(), sign.getBlockData());
                 sender.sendMessage(colorize("&2Line &f'" + line + "'&2 has successfully changed to &f'" + text + "&f'"));
                 return true;
             }
@@ -935,7 +919,7 @@ public class ItemizerXCommand implements CommandExecutor
             {
                 if (!sender.hasPermission("itemizer.clearall"))
                 {
-                    sender.sendMessage("&4You don't have permission to use this command!");
+                    sender.sendMessage(colorize("&4You don't have permission to use this command!"));
                     return true;
                 }
                 if (!hasItem)
@@ -967,7 +951,7 @@ public class ItemizerXCommand implements CommandExecutor
         return string;
     }
 
-    private int parseInt(CommandSender sender, String string)
+    private Integer parseInt(CommandSender sender, String string)
     {
         try
         {
@@ -977,6 +961,6 @@ public class ItemizerXCommand implements CommandExecutor
         {
             sender.sendMessage(colorize("&f\"" + string + "&f\"&4 is not a valid number!"));
         }
-        return -1;
+        return null;
     }
 }
