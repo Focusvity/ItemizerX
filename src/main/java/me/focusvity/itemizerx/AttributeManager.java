@@ -57,9 +57,9 @@ public class AttributeManager
         }
         final ItemStack nms = CraftItemStack.asNMSCopy(player.getInventory().getItemInMainHand());
         final NBTTagList attrmod = getAttrList(nms);
-        for (int i = 0; i < attrmod.size(); i++)
+        for (net.minecraft.server.v1_16_R3.NBTBase nbtBase : attrmod)
         {
-            final NBTTagCompound c = (NBTTagCompound) attrmod.get(i);
+            final NBTTagCompound c = (NBTTagCompound) nbtBase;
             if (c.getString("Name").equals(args[2]))
             {
                 player.sendMessage(colorize("&4An attribute with the name \"&f" + args[2] + "&4\"  already exists!"));
@@ -70,10 +70,7 @@ public class AttributeManager
         c.setString("Name", args[2]);
         c.setString("AttributeName", a.mcName);
         c.setDouble("Amount", amount);
-        if (op == -1)
-        {
-            op = a.op;
-        }
+        op = a.op;
         c.setInt("Operation", op);
         final Random random = new Random();
         c.setIntArray("UUID", new int[]
@@ -113,12 +110,12 @@ public class AttributeManager
         final NBTTagList attrmod = getAttrList(nms);
         final NBTTagList newList = new NBTTagList();
         boolean r = false;
-        for (int i = 0; i < attrmod.size(); i++)
+        for (net.minecraft.server.v1_16_R3.NBTBase nbtBase : attrmod)
         {
-            final NBTTagCompound c = (NBTTagCompound) attrmod.get(i);
+            final NBTTagCompound c = (NBTTagCompound) nbtBase;
             if (!c.getString("Name").equals(string))
             {
-                newList.add(attrmod.get(i));
+                newList.add(nbtBase);
             }
             else
             {
@@ -146,9 +143,9 @@ public class AttributeManager
             return;
         }
         player.sendMessage(colorize("&2Item attributes: "));
-        for (int i = 0; i < attrmod.size(); i++)
+        for (net.minecraft.server.v1_16_R3.NBTBase nbtBase : attrmod)
         {
-            final NBTTagCompound c = (NBTTagCompound) attrmod.get(i);
+            final NBTTagCompound c = (NBTTagCompound) nbtBase;
             player.sendMessage(colorize("&e" + Attributes.get(c.getString("AttributeName")).mcName
                     + ", " + c.getDouble("Amount")));
         }
@@ -199,6 +196,16 @@ public class AttributeManager
         public static String getAttributes()
         {
             return StringUtils.join(values(), ", ");
+        }
+
+        public static List<String> getAttributeList()
+        {
+            List<String> attributes = new ArrayList<>();
+            for (Attributes attr : values())
+            {
+                attributes.add(attr.name());
+            }
+            return attributes;
         }
     }
 }

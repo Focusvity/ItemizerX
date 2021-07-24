@@ -19,6 +19,7 @@ public class ItemizerX extends JavaPlugin
         plugin = this;
         CoreProtectBridge.getCoreProtect();
         getCommand("itemizer").setExecutor(new ItemizerXCommand());
+        getCommand("itemizer").setTabCompleter(new ItemizerXTab());
     }
 
     @Override

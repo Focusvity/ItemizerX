@@ -16,13 +16,13 @@ public class CoreProtectBridge
         try
         {
             final Plugin pl = Bukkit.getPluginManager().getPlugin("CoreProtect");
-            if (pl != null && pl instanceof CoreProtect)
+            if (pl instanceof CoreProtect)
             {
                 cp = (CoreProtect) pl;
             }
             else
             {
-                Bukkit.getLogger().info("CoreProtect not detected, expect the plugin to not function properly!");
+                Bukkit.getLogger().info("CoreProtect not detected, some features will not be logged!");
             }
         }
         catch (Exception ex)
@@ -42,7 +42,7 @@ public class CoreProtectBridge
                 api = cp.getAPI();
                 if (!cp.isEnabled() || !api.isEnabled())
                 {
-                    Bukkit.getLogger().info("CoreProtect is disabled, expect the plugin to not function properly!");
+                    Bukkit.getLogger().info("CoreProtect is disabled, some features will not be logged!");
                     return null;
                 }
             }

@@ -25,6 +25,7 @@ import org.bukkit.potion.PotionEffectType;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Objects;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -96,9 +97,8 @@ public class ItemizerXCommand implements CommandExecutor
                 {
                     sender.sendMessage(colorize("&3===============&f[&dName Commands&f]&3===============\n"
                             + "&b/itemizer name <&fname&b> &c - &6Name your item"));
-                    return true;
                 }
-                else if (args.length >= 2)
+                else
                 {
                     if (!hasItem)
                     {
@@ -110,8 +110,8 @@ public class ItemizerXCommand implements CommandExecutor
                     meta.setDisplayName(name);
                     item.setItemMeta(meta);
                     sender.sendMessage(colorize("&2The name of the item in your hand has been set to &f'" + name + "&f'"));
-                    return true;
                 }
+                return true;
             }
             case "id":
             {
@@ -162,7 +162,7 @@ public class ItemizerXCommand implements CommandExecutor
                     sender.sendMessage("Get an ITEM in hand!");
                     return true;
                 }
-                else if (args.length >= 2)
+                else
                 {
                     switch (args[1])
                     {
@@ -321,7 +321,7 @@ public class ItemizerXCommand implements CommandExecutor
                     sender.sendMessage("Get a POTION in hand!");
                     return true;
                 }
-                else if (args.length >= 2)
+                else
                 {
                     switch (args[1])
                     {
@@ -497,7 +497,7 @@ public class ItemizerXCommand implements CommandExecutor
                     sender.sendMessage("Get an ITEM in hand!");
                     return true;
                 }
-                else if (args.length >= 2)
+                else
                 {
                     switch (args[1])
                     {
@@ -586,10 +586,17 @@ public class ItemizerXCommand implements CommandExecutor
                                     + "&b/itemizer flag add <&fname&b> &c- &6Add a flag"));
                             return true;
                         }
-                        final ItemFlag flag = ItemFlag.valueOf(args[2].toUpperCase());
+                        ItemFlag flag = null;
+                        try
+                        {
+                            flag = ItemFlag.valueOf(args[2].toUpperCase());
+                        }
+                        catch (Exception ignored)
+                        {
+                        }
                         if (flag == null)
                         {
-                            sender.sendMessage(colorize("&4The flag &f'" + args[2].toUpperCase() + "&f' does not exist!"));
+                            sender.sendMessage(colorize("&4The flag &f\"" + args[2] + "&f\" does not exist!"));
                             return true;
                         }
                         assert meta != null;
@@ -616,7 +623,14 @@ public class ItemizerXCommand implements CommandExecutor
                                     + "&b/itemizer flag remove <&fname&b> &c- &6remove a flag"));
                             return true;
                         }
-                        final ItemFlag flag = ItemFlag.valueOf(args[2].toUpperCase());
+                        ItemFlag flag = null;
+                        try
+                        {
+                            flag = ItemFlag.valueOf(args[2].toUpperCase());
+                        }
+                        catch (Exception ignored)
+                        {
+                        }
                         if (flag == null)
                         {
                             sender.sendMessage(colorize("&4The flag &f\"" + args[2] + "&f\" does not exist!"));
@@ -641,7 +655,7 @@ public class ItemizerXCommand implements CommandExecutor
                             return true;
                         }
                         assert meta != null;
-                        if (meta.getItemFlags() == null || meta.getItemFlags().isEmpty())
+                        if (Objects.requireNonNull(meta.getItemFlags()).isEmpty())
                         {
                             sender.sendMessage(colorize("&4The item in your hand does not have any flags"));
                             return true;
@@ -710,8 +724,8 @@ public class ItemizerXCommand implements CommandExecutor
                             sender.sendMessage(colorize("&4The enchantment &f'" + args[2] + "&f' &4does not exist!"));
                             return true;
                         }
-                        int level = parseInt(sender, args[3]);
-                        if (level == -1)
+                        Integer level = parseInt(sender, args[3]);
+                        if (level == null)
                         {
                             return true;
                         }
@@ -739,7 +753,7 @@ public class ItemizerXCommand implements CommandExecutor
                             return true;
                         }
                         assert meta != null;
-                        if (meta.getEnchants() == null || meta.getEnchants().isEmpty())
+                        if (Objects.requireNonNull(meta.getEnchants()).isEmpty())
                         {
                             sender.sendMessage(colorize("&4This item doesn't hold any enchants"));
                             return true;
@@ -761,7 +775,7 @@ public class ItemizerXCommand implements CommandExecutor
                             return true;
                         }
                         assert meta != null;
-                        if (meta.getEnchants() == null || meta.getEnchants().isEmpty())
+                        if (Objects.requireNonNull(meta.getEnchants()).isEmpty())
                         {
                             sender.sendMessage(colorize("&4This item doesn't hold any enchants"));
                             return true;
@@ -889,7 +903,7 @@ public class ItemizerXCommand implements CommandExecutor
                             + "&b/itemizer sign <&fline&b> <&ftext&b> &c- &6Change the line on the sign"));
                     return true;
                 }
-                final Block block = player.getTargetBlock(null, 20);
+                final Block block = player.getTargetBlockExact(20);
                 if (block == null || block.getType() == Material.AIR
                         || !block.getType().toString().contains("SIGN"))
                 {

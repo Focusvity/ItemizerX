@@ -4,6 +4,8 @@ api-version: 1.16
 description: A rewrite of Itemizer
 author: unsuperiordev (Focusvity)
 main: me.focusvity.itemizerx.ItemizerX
+softdepend:
+  - CoreProtect
 commands:
   itemizer:
     description: The main command for ItemizerX
