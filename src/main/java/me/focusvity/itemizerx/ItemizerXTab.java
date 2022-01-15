@@ -13,117 +13,88 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
-public class ItemizerXTab implements TabCompleter
-{
+public class ItemizerXTab implements TabCompleter {
 
     @Override
-    public List<String> onTabComplete(CommandSender sender, Command cmd, String string, String[] args)
-    {
-        if (args.length == 1)
-        {
+    public List<String> onTabComplete(CommandSender sender, Command cmd, String string, String[] args) {
+        if (args.length == 1) {
             return Arrays.asList("help", "id", "lore", "potion", "attr", "flag", "enchant", "title", "author",
-                    "head", "sign", "clearall");
+                "head", "sign", "clearall");
         }
 
-        if (args.length == 2)
-        {
-            switch (args[0])
-            {
-                case "id":
-                {
+        if (args.length == 2) {
+            switch (args[0]) {
+                case "id": {
                     List<String> materials = new ArrayList<>();
-                    for (Material material : Material.values())
-                    {
+                    for (Material material : Material.values()) {
                         materials.add(material.name());
                     }
                     return materials;
                 }
-                case "lore":
-                {
+                case "lore": {
                     return Arrays.asList("add", "remove", "change", "clear");
                 }
-                case "potion":
-                {
+                case "potion": {
                     return Arrays.asList("add", "remove", "change", "color", "list");
                 }
                 case "attr":
                 case "flag":
-                case "enchant":
-                {
+                case "enchant": {
                     return Arrays.asList("add", "remove", "list", "listall");
                 }
-                default:
-                {
+                default: {
                     return Collections.emptyList();
                 }
             }
         }
 
-        if (args.length == 3)
-        {
-            switch (args[0])
-            {
-                case "potion":
-                {
-                    switch (args[1])
-                    {
+        if (args.length == 3) {
+            switch (args[0]) {
+                case "potion": {
+                    switch (args[1]) {
                         case "add":
-                        case "remove":
-                        {
+                        case "remove": {
                             List<String> potions = new ArrayList<>();
-                            for (PotionEffectType effect : PotionEffectType.values())
-                            {
+                            for (PotionEffectType effect : PotionEffectType.values()) {
                                 potions.add(effect.getName());
                             }
                             return potions;
                         }
                     }
                 }
-                case "attr":
-                {
-                    switch (args[1])
-                    {
+                case "attr": {
+                    switch (args[1]) {
                         case "add":
-                        case "remove":
-                        {
+                        case "remove": {
                             return AttributeManager.Attributes.getAttributeList();
                         }
                     }
                 }
-                case "flag":
-                {
-                    switch (args[1])
-                    {
+                case "flag": {
+                    switch (args[1]) {
                         case "add":
-                        case "remove":
-                        {
+                        case "remove": {
                             List<String> flags = new ArrayList<>();
-                            for (ItemFlag flag : ItemFlag.values())
-                            {
+                            for (ItemFlag flag : ItemFlag.values()) {
                                 flags.add(flag.name());
                             }
                             return flags;
                         }
                     }
                 }
-                case "enchant":
-                {
-                    switch (args[1])
-                    {
+                case "enchant": {
+                    switch (args[1]) {
                         case "add":
-                        case "remove":
-                        {
+                        case "remove": {
                             List<String> enchantments = new ArrayList<>();
-                            for (Enchantment enchantment : Enchantment.values())
-                            {
+                            for (Enchantment enchantment : Enchantment.values()) {
                                 enchantments.add(enchantment.getKey().getKey());
                             }
                             return enchantments;
                         }
                     }
                 }
-                default:
-                {
+                default: {
                     return Collections.emptyList();
                 }
             }
