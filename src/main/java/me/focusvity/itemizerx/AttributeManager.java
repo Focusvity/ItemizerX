@@ -1,68 +1,56 @@
 package me.focusvity.itemizerx;
 
-import net.minecraft.server.v1_16_R3.ItemStack;
-import net.minecraft.server.v1_16_R3.NBTTagCompound;
-import net.minecraft.server.v1_16_R3.NBTTagList;
+import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.nbt.NBTTagList;
+import net.minecraft.world.item.ItemStack;
 import org.apache.commons.lang.StringUtils;
 import org.bukkit.ChatColor;
-import org.bukkit.craftbukkit.v1_16_R3.inventory.CraftItemStack;
+import org.bukkit.craftbukkit.v1_17_R1.inventory.CraftItemStack;
 import org.bukkit.entity.Player;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-public class AttributeManager
-{
+public class AttributeManager {
 
-    public static NBTTagList getAttrList(final ItemStack item)
-    {
+    public static NBTTagList getAttrList(final ItemStack item) {
         NBTTagList attrmod = item.getOrCreateTag().getList("AttributeModifiers", 10);
-        if (attrmod == null)
-        {
+        if (attrmod == null) {
             item.getTag().set("AttributeModifiers", new NBTTagList());
         }
         return item.getTag().getList("AttributeModifiers", 10);
     }
 
-    public static void addAttr(final Player player, final String[] args)
-    {
-        int op = -1;
-        if (args.length < 4)
-        {
+    public static void addAttr(final Player player, final String[] args) {
+        int op;
+        if (args.length < 4) {
             player.sendMessage(colorize("&b/itemizer attr add <&fname&b> <&fstrength&b> [&fslot&b] &c- "
-                    + "&6Add an attribute"));
+                + "&6Add an attribute"));
             return;
         }
         final Attributes a = Attributes.get(args[2]);
-        if (a == null)
-        {
+        if (a == null) {
             player.sendMessage(colorize("&4\"" + args[2] + "\" is not a valid attribute type."));
             return;
         }
         double amount;
-        try
-        {
+        try {
             amount = Double.parseDouble(args[3]);
-        }
-        catch (NumberFormatException ex)
-        {
+        } catch (NumberFormatException ex) {
             player.sendMessage(colorize("&4\"" + args[3] + "\" is not a valid number."));
             return;
         }
-        if (Double.isNaN(amount))
-        {
+        if (Double.isNaN(amount)) {
             player.sendMessage(colorize("&4Please do not use &f'NaN (Not a Number)'"));
             return;
         }
         final ItemStack nms = CraftItemStack.asNMSCopy(player.getInventory().getItemInMainHand());
         final NBTTagList attrmod = getAttrList(nms);
-        for (net.minecraft.server.v1_16_R3.NBTBase nbtBase : attrmod)
-        {
+        for (net.minecraft.nbt.NBTBase nbtBase : attrmod) {
             final NBTTagCompound c = (NBTTagCompound) nbtBase;
-            if (c.getString("Name").equals(args[2]))
-            {
-                player.sendMessage(colorize("&4An attribute with the name \"&f" + args[2] + "&4\"  already exists!"));
+            if (c.getString("Name").equals(args[2])) {
+                player.sendMessage(colorize("&4An attribute with the name \"&f" + args[2] + "&4\" already exists!"));
                 return;
             }
         }
@@ -74,14 +62,13 @@ public class AttributeManager
         c.setInt("Operation", op);
         final Random random = new Random();
         c.setIntArray("UUID", new int[]
-                {
-                        random.nextInt(),
-                        random.nextInt(),
-                        random.nextInt(),
-                        random.nextInt()
-                });
-        if (args.length == 5)
-        {
+            {
+                random.nextInt(),
+                random.nextInt(),
+                random.nextInt(),
+                random.nextInt()
+            });
+        if (args.length == 5) {
             final List<String> options = new ArrayList<>();
             options.add("mainhand");
             options.add("offhand");
@@ -89,10 +76,9 @@ public class AttributeManager
             options.add("chest");
             options.add("legs");
             options.add("feet");
-            if (!options.contains(args[4].toLowerCase()))
-            {
+            if (!options.contains(args[4].toLowerCase())) {
                 player.sendMessage(colorize("&2Supported options:\n"
-                        + "&e" + StringUtils.join(options, ", ")));
+                    + "&e" + StringUtils.join(options, ", ")));
                 return;
             }
             c.setString("Slot", args[4].toLowerCase());
@@ -104,26 +90,20 @@ public class AttributeManager
         player.sendMessage(colorize("&2Attribute added!"));
     }
 
-    public static void removeAttr(final Player player, final String string)
-    {
+    public static void removeAttr(final Player player, final String string) {
         final ItemStack nms = CraftItemStack.asNMSCopy(player.getInventory().getItemInMainHand());
         final NBTTagList attrmod = getAttrList(nms);
         final NBTTagList newList = new NBTTagList();
         boolean r = false;
-        for (net.minecraft.server.v1_16_R3.NBTBase nbtBase : attrmod)
-        {
+        for (net.minecraft.nbt.NBTBase nbtBase : attrmod) {
             final NBTTagCompound c = (NBTTagCompound) nbtBase;
-            if (!c.getString("Name").equals(string))
-            {
+            if (!c.getString("Name").equals(string)) {
                 newList.add(nbtBase);
-            }
-            else
-            {
+            } else {
                 r = true;
             }
         }
-        if (!r)
-        {
+        if (!r) {
             player.sendMessage(colorize("&4The attribute \"" + string + "\" doesn't exist!"));
             return;
         }
@@ -133,31 +113,26 @@ public class AttributeManager
         player.sendMessage(colorize("&2Attribute removed!"));
     }
 
-    public static void listAttr(final Player player)
-    {
+    public static void listAttr(final Player player) {
         final ItemStack nms = CraftItemStack.asNMSCopy(player.getInventory().getItemInMainHand());
         final NBTTagList attrmod = getAttrList(nms);
-        if (attrmod.size() == 0)
-        {
+        if (attrmod.size() == 0) {
             player.sendMessage(colorize("&eThis item has no attributes."));
             return;
         }
         player.sendMessage(colorize("&2Item attributes: "));
-        for (net.minecraft.server.v1_16_R3.NBTBase nbtBase : attrmod)
-        {
+        for (net.minecraft.nbt.NBTBase nbtBase : attrmod) {
             final NBTTagCompound c = (NBTTagCompound) nbtBase;
             player.sendMessage(colorize("&e" + Attributes.get(c.getString("AttributeName")).mcName
-                    + ", " + c.getDouble("Amount")));
+                + ", " + c.getDouble("Amount")));
         }
     }
 
-    private static String colorize(String string)
-    {
+    private static String colorize(String string) {
         return ChatColor.translateAlternateColorCodes('&', string);
     }
 
-    public enum Attributes
-    {
+    public enum Attributes {
 
         MAX_HEALTH("generic.max_health", 0),
         FOLLOW_RANGE("generic.follow_range", 1),
@@ -175,34 +150,27 @@ public class AttributeManager
         private final String mcName;
         private final int op;
 
-        Attributes(String mcName, int op)
-        {
+        Attributes(String mcName, int op) {
             this.mcName = mcName;
             this.op = op;
         }
 
-        public static Attributes get(String name)
-        {
-            for (Attributes attr : values())
-            {
-                if (attr.name().equalsIgnoreCase(name) || attr.mcName.equalsIgnoreCase(name))
-                {
+        public static Attributes get(String name) {
+            for (Attributes attr : values()) {
+                if (attr.name().equalsIgnoreCase(name) || attr.mcName.equalsIgnoreCase(name)) {
                     return attr;
                 }
             }
             return null;
         }
 
-        public static String getAttributes()
-        {
+        public static String getAttributes() {
             return StringUtils.join(values(), ", ");
         }
 
-        public static List<String> getAttributeList()
-        {
+        public static List<String> getAttributeList() {
             List<String> attributes = new ArrayList<>();
-            for (Attributes attr : values())
-            {
+            for (Attributes attr : values()) {
                 attributes.add(attr.name());
             }
             return attributes;
