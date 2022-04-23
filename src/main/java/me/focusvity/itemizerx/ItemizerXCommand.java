@@ -292,7 +292,7 @@ public class ItemizerXCommand implements CommandExecutor {
                             if (level == null || tick == null) {
                                 return true;
                             }
-                            final PotionEffect pot = new PotionEffect(potType, level, tick);
+                            final PotionEffect pot = new PotionEffect(potType, tick, level);
                             final PotionMeta potionMeta = (PotionMeta) meta;
                             assert potionMeta != null;
                             if (potionMeta.hasCustomEffect(pot.getType())) {
