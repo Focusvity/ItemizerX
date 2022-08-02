@@ -5,7 +5,7 @@ import net.minecraft.nbt.NBTTagList;
 import net.minecraft.world.item.ItemStack;
 import org.apache.commons.lang.StringUtils;
 import org.bukkit.ChatColor;
-import org.bukkit.craftbukkit.v1_17_R1.inventory.CraftItemStack;
+import org.bukkit.craftbukkit.v1_19_R1.inventory.CraftItemStack;
 import org.bukkit.entity.Player;
 
 import java.util.ArrayList;
@@ -15,11 +15,11 @@ import java.util.Random;
 public class AttributeManager {
 
     public static NBTTagList getAttrList(final ItemStack item) {
-        NBTTagList attrmod = item.getOrCreateTag().getList("AttributeModifiers", 10);
+        NBTTagList attrmod = item.v().c("AttributeModifiers", 10);
         if (attrmod == null) {
-            item.getTag().set("AttributeModifiers", new NBTTagList());
+            item.u().a("AttributeModifiers", new NBTTagList());
         }
-        return item.getTag().getList("AttributeModifiers", 10);
+        return item.u().c("AttributeModifiers", 10);
     }
 
     public static void addAttr(final Player player, final String[] args) {
@@ -49,19 +49,19 @@ public class AttributeManager {
         final NBTTagList attrmod = getAttrList(nms);
         for (net.minecraft.nbt.NBTBase nbtBase : attrmod) {
             final NBTTagCompound c = (NBTTagCompound) nbtBase;
-            if (c.getString("Name").equals(args[2])) {
+            if (c.l("Name").equals(args[2])) {
                 player.sendMessage(colorize("&4An attribute with the name \"&f" + args[2] + "&4\" already exists!"));
                 return;
             }
         }
         final NBTTagCompound c = new NBTTagCompound();
-        c.setString("Name", args[2]);
-        c.setString("AttributeName", a.mcName);
-        c.setDouble("Amount", amount);
+        c.a("Name", args[2]);
+        c.a("AttributeName", a.mcName);
+        c.a("Amount", amount);
         op = a.op;
-        c.setInt("Operation", op);
+        c.a("Operation", op);
         final Random random = new Random();
-        c.setIntArray("UUID", new int[]
+        c.a("UUID", new int[]
             {
                 random.nextInt(),
                 random.nextInt(),
@@ -81,10 +81,10 @@ public class AttributeManager {
                     + "&e" + StringUtils.join(options, ", ")));
                 return;
             }
-            c.setString("Slot", args[4].toLowerCase());
+            c.a("Slot", args[4].toLowerCase());
         }
         attrmod.add(c);
-        nms.getTag().set("AttributeModifiers", attrmod);
+        nms.u().a("AttributeModifiers", attrmod);
         final org.bukkit.inventory.ItemStack is = CraftItemStack.asCraftMirror(nms);
         player.getInventory().setItemInMainHand(is);
         player.sendMessage(colorize("&2Attribute added!"));
@@ -97,7 +97,7 @@ public class AttributeManager {
         boolean r = false;
         for (net.minecraft.nbt.NBTBase nbtBase : attrmod) {
             final NBTTagCompound c = (NBTTagCompound) nbtBase;
-            if (!c.getString("Name").equals(string)) {
+            if (!c.l("Name").equals(string)) {
                 newList.add(nbtBase);
             } else {
                 r = true;
@@ -107,7 +107,7 @@ public class AttributeManager {
             player.sendMessage(colorize("&4The attribute \"" + string + "\" doesn't exist!"));
             return;
         }
-        nms.getTag().set("AttributeModifiers", newList);
+        nms.u().a("AttributeModifiers", newList);
         final org.bukkit.inventory.ItemStack is = CraftItemStack.asCraftMirror(nms);
         player.getInventory().setItemInMainHand(is);
         player.sendMessage(colorize("&2Attribute removed!"));
@@ -123,8 +123,8 @@ public class AttributeManager {
         player.sendMessage(colorize("&2Item attributes: "));
         for (net.minecraft.nbt.NBTBase nbtBase : attrmod) {
             final NBTTagCompound c = (NBTTagCompound) nbtBase;
-            player.sendMessage(colorize("&e" + Attributes.get(c.getString("AttributeName")).mcName
-                + ", " + c.getDouble("Amount")));
+            player.sendMessage(colorize("&e" + Attributes.get(c.l("AttributeName")).mcName
+                + ", " + c.k("Amount")));
         }
     }
 
