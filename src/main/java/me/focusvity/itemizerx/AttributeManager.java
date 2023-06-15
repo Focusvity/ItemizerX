@@ -5,7 +5,7 @@ import net.minecraft.nbt.NBTTagList;
 import net.minecraft.world.item.ItemStack;
 import org.apache.commons.lang.StringUtils;
 import org.bukkit.ChatColor;
-import org.bukkit.craftbukkit.v1_19_R3.inventory.CraftItemStack;
+import org.bukkit.craftbukkit.v1_20_R1.inventory.CraftItemStack;
 import org.bukkit.entity.Player;
 
 import java.util.ArrayList;
@@ -15,11 +15,11 @@ import java.util.Random;
 public class AttributeManager {
 
     public static NBTTagList getAttrList(final ItemStack item) {
-        NBTTagList attrmod = item.v().c("AttributeModifiers", 10);
+        NBTTagList attrmod = item.w().c("AttributeModifiers", 10);
         if (attrmod == null) {
-            item.u().a("AttributeModifiers", new NBTTagList());
+            item.v().a("AttributeModifiers", new NBTTagList());
         }
-        return item.u().c("AttributeModifiers", 10);
+        return item.v().c("AttributeModifiers", 10);
     }
 
     public static void addAttr(final Player player, final String[] args) {
@@ -84,7 +84,7 @@ public class AttributeManager {
             c.a("Slot", args[4].toLowerCase());
         }
         attrmod.add(c);
-        nms.u().a("AttributeModifiers", attrmod);
+        nms.v().a("AttributeModifiers", attrmod);
         final org.bukkit.inventory.ItemStack is = CraftItemStack.asCraftMirror(nms);
         player.getInventory().setItemInMainHand(is);
         player.sendMessage(colorize("&2Attribute added!"));
@@ -107,7 +107,7 @@ public class AttributeManager {
             player.sendMessage(colorize("&4The attribute \"" + string + "\" doesn't exist!"));
             return;
         }
-        nms.u().a("AttributeModifiers", newList);
+        nms.v().a("AttributeModifiers", newList);
         final org.bukkit.inventory.ItemStack is = CraftItemStack.asCraftMirror(nms);
         player.getInventory().setItemInMainHand(is);
         player.sendMessage(colorize("&2Attribute removed!"));
